@@ -1,21 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_vectornew.c                                     :+:      :+:    :+:   */
+/*   ft_vectorpopfront.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: skamoza <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/10/24 19:16:02 by skamoza           #+#    #+#             */
-/*   Updated: 2018/01/08 15:23:34 by skamoza          ###   ########.fr       */
+/*   Created: 2018/01/08 16:10:00 by skamoza           #+#    #+#             */
+/*   Updated: 2018/01/08 16:22:18 by skamoza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_vector	ft_vectornew(size_t size, size_t init)
+void	*ft_vectorpopfront(t_vector *vect)
 {
-	t_vector	dynarr;
-
-	ft_vectorinit(&dynarr, size, init);
-	return (dynarr);
+	if (vect->front == vect->back)
+		return (NULL);
+	return (ft_vectorget(vect, vect->front++));
 }

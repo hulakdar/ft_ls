@@ -6,7 +6,7 @@
 /*   By: skamoza <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/20 13:31:48 by skamoza           #+#    #+#             */
-/*   Updated: 2017/12/05 12:22:44 by skamoza          ###   ########.fr       */
+/*   Updated: 2018/01/08 16:10:42 by skamoza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,4 +24,5 @@ void	ft_vectorinit(t_vector *dynarr, size_t size, size_t init)
 	dynarr->last = new_size - 1;
 	dynarr->size = size;
 	dynarr->back = 0;
+	dynarr->front = 0;
 }

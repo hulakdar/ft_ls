@@ -1,21 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_vectornew.c                                     :+:      :+:    :+:   */
+/*   ft_ls_is_valid_param.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: skamoza <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/10/24 19:16:02 by skamoza           #+#    #+#             */
-/*   Updated: 2018/01/08 15:23:34 by skamoza          ###   ########.fr       */
+/*   Created: 2018/01/08 15:51:18 by skamoza           #+#    #+#             */
+/*   Updated: 2018/01/08 16:06:20 by skamoza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_ls.h"
 
-t_vector	ft_vectornew(size_t size, size_t init)
+int		ft_ls_is_valid_param(char *dir_name)
 {
-	t_vector	dynarr;
+	DIR				*dir;
 
-	ft_vectorinit(&dynarr, size, init);
-	return (dynarr);
+	if (!(dir = opendir(dir_name)))
+		return (0);
+	closedir(dir);
+	return (1);
 }

@@ -1,6 +1,6 @@
 CC=clang
 CFLAGS=-Wall -Wextra -g
-FILES=main
+FILES=main ft_ls_error_manager ft_ls_is_valid_param ft_ls_sorting ft_ls_print_current
 OBJ=$(addprefix obj/, $(addsuffix .o, $(FILES)))
 NAME=ft_ls
 
@@ -11,7 +11,6 @@ $(NAME): $(OBJ) libft/libft.a
 	@echo "Binary is done! 🖥"
 libft/libft.a:
 	@make -C libft/
-	@echo "Library is done!📚"
 obj/%.o: %.c
 	@$(CC) -c $^ -o $@ $(CFLAGS)
 clean:

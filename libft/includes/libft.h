@@ -6,7 +6,7 @@
 /*   By: skamoza <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/24 15:05:07 by skamoza           #+#    #+#             */
-/*   Updated: 2017/12/05 12:28:28 by skamoza          ###   ########.fr       */
+/*   Updated: 2018/01/08 17:33:52 by skamoza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ typedef struct		s_vector
 	size_t			last;
 	size_t			count;
 	size_t			back;
+	size_t			front;
 }					t_vector;
 
 int					get_next_line(const int fd, char **line);
@@ -96,6 +97,7 @@ void				ft_putchar(char c);
 void				ft_putstr(char const *s);
 void				ft_putendl(char const *s);
 void				ft_putnbr(int n);
+void				ft_puttab(char *str);
 void				ft_putchar_fd(char c, int fd);
 void				ft_putstr_fd(char const *s, int fd);
 void				ft_putendl_fd(char const *s, int fd);
@@ -121,8 +123,11 @@ void				ft_vectorinit(t_vector *dynarr, size_t size, size_t index);
 void				ft_vectordestruct(t_vector *ptr);
 void				ft_vectorpushback(t_vector *vector, void *content);
 void				*ft_vectorpopback(t_vector *vector);
+void				*ft_vectorpopfront(t_vector *vector);
 void				*ft_quickmove(void *dst, void *src, size_t size);
 int					ft_atoi_b(char *str, int base);
 void				ft_tabdel(char ***hint);
 size_t				ft_tabcount(char **tab);
+void				ft_sort(void *begin, void *end, size_t size,
+										int (*f)(void *, void *));
 #endif

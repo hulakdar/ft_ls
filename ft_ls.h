@@ -6,7 +6,7 @@
 /*   By: skamoza <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/06 16:15:28 by skamoza           #+#    #+#             */
-/*   Updated: 2018/01/07 21:42:15 by skamoza          ###   ########.fr       */
+/*   Updated: 2018/01/08 18:53:27 by skamoza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,10 @@ typedef struct	s_flags
 }				t_flags;
 
 void			ft_ls_error(char *error, t_vector *vec);
+int				ft_ls_error_manager(char *error, char *vec, size_t size);
 void			ft_ls_usage(void);
-int				ft_list_dir(char *dir_name, t_flags *flags);
+int				ft_list_dir(char *dir_name, t_flags *flags, int first);
+int				ft_ls_is_valid_param(char *param);
+void			ft_ls_sorting(t_vector vect, t_flags *flags);
+void			ft_ls_print_current(t_vector vect, t_flags flags);
 #endif

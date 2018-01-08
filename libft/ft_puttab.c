@@ -1,21 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_vectornew.c                                     :+:      :+:    :+:   */
+/*   ft_puttab.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: skamoza <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/10/24 19:16:02 by skamoza           #+#    #+#             */
-/*   Updated: 2018/01/08 15:23:34 by skamoza          ###   ########.fr       */
+/*   Created: 2018/01/08 16:25:39 by skamoza           #+#    #+#             */
+/*   Updated: 2018/01/08 16:31:36 by skamoza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_vector	ft_vectornew(size_t size, size_t init)
+void	ft_puttab(char *str)
 {
-	t_vector	dynarr;
-
-	ft_vectorinit(&dynarr, size, init);
-	return (dynarr);
+	ft_putstr(str);
+	ft_putchar('\t');
 }
