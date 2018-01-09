@@ -1,23 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_ls_info_push.c                                  :+:      :+:    :+:   */
+/*   ft_ls_destruct.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skamoza <skamoza@gmail.com>                +#+  +:+       +#+        */
+/*   By: skamoza <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/01/08 21:24:50 by skamoza           #+#    #+#             */
-/*   Updated: 2018/01/09 20:09:13 by skamoza          ###   ########.fr       */
+/*   Created: 2018/01/09 19:25:54 by skamoza           #+#    #+#             */
+/*   Updated: 2018/01/09 19:28:11 by skamoza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-void	ft_ls_info_push(t_vector *vect, char *file_path, char *file_name)
+void	ft_ls_destruct(t_vector *vect)
 {
-	t_file_info		info;
+	t_file_info *tmp;
 
-	info = ft_ls_construct_info(file_path, file_name);
-	if (info.stat.st_mode & S_IFLNK)
-		lstat(info.file_path, &info.stat);
-	ft_vec_pushback(vect, &info);
+	while ((tmp = (t_file_info *)ft_vec_popback(vect)))
+		free(tmp->file_path);
+	ft_vectordel(vect);
 }

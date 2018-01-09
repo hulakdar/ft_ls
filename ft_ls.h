@@ -6,7 +6,7 @@
 /*   By: skamoza <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/06 16:15:28 by skamoza           #+#    #+#             */
-/*   Updated: 2018/01/09 01:22:40 by skamoza          ###   ########.fr       */
+/*   Updated: 2018/01/09 20:41:19 by skamoza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,11 @@
 # include <sys/stat.h>
 # include <pwd.h>
 # include <grp.h>
+# include <time.h>
+# define ANSI_RED "\033[1;31m"
+# define ANSI_GREEN "\033[36m"
+# define ANSI_PINK "\033[35m"
+# define ANSI_RESET "\033[0m"
 typedef	struct stat	t_stat;
 typedef struct	s_flags
 {
@@ -50,4 +55,5 @@ void			ft_ls_print_current(t_vector vect, t_flags flags,
 t_file_info		ft_ls_construct_info(char *file_path, char *file_name);
 void			ft_ls_info_push(t_vector *vect, char *file_path,
 												char *file_name);
+void			ft_ls_destruct(t_vector *vect);
 #endif

@@ -6,7 +6,7 @@
 /*   By: skamoza <skamoza@gmail.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/08 21:36:15 by skamoza           #+#    #+#             */
-/*   Updated: 2018/01/09 01:22:39 by skamoza          ###   ########.fr       */
+/*   Updated: 2018/01/09 20:09:12 by skamoza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@ t_file_info	ft_ls_construct_info(char *file_path, char *file_name)
 	char		*half;
 	char		*whole;
 
-	if (stat(file_path, &info.stat) == -1)
-		ft_bzero(&info, sizeof(t_file_info));
 	if (*file_path)
 	{
 		half = ft_strjoin(file_path, "/");
@@ -30,5 +28,10 @@ t_file_info	ft_ls_construct_info(char *file_path, char *file_name)
 	else
 		info.file_path = ft_strdup(file_name);
 	info.file_name = file_name;
+	if (lstat(info.file_path, &info.stat) == -1)
+	{
+		ft_bzero(&info, sizeof(t_file_info));
+		free(whole);
+	}
 	return (info);
 }
