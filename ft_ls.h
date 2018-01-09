@@ -6,7 +6,7 @@
 /*   By: skamoza <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/06 16:15:28 by skamoza           #+#    #+#             */
-/*   Updated: 2018/01/08 18:53:27 by skamoza          ###   ########.fr       */
+/*   Updated: 2018/01/09 01:22:40 by skamoza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,11 @@
 # define FT_LS_H
 # include "libft/includes/libft.h"
 # include <dirent.h>
+# include <sys/types.h>
+# include <sys/stat.h>
+# include <pwd.h>
+# include <grp.h>
+typedef	struct stat	t_stat;
 typedef struct	s_flags
 {
 	unsigned	recursive : 1;
@@ -26,12 +31,23 @@ typedef struct	s_flags
 	unsigned	list : 1;
 	unsigned	l_group : 1;
 }				t_flags;
+typedef struct	s_file_info
+{
+	t_stat		stat;
+	char		*file_name;
+	char		*file_path;
+}				t_file_info;
 
-void			ft_ls_error(char *error, t_vector *vec);
+void			ft_ls_error(char *error, char *param);
 int				ft_ls_error_manager(char *error, char *vec, size_t size);
 void			ft_ls_usage(void);
-int				ft_list_dir(char *dir_name, t_flags *flags, int first);
+int				ft_list_dir(t_file_info info, t_flags flags, int first,
+											void *(*ft_vec_pop)(t_vector *));
 int				ft_ls_is_valid_param(char *param);
-void			ft_ls_sorting(t_vector vect, t_flags *flags);
-void			ft_ls_print_current(t_vector vect, t_flags flags);
+void			ft_ls_sorting(t_vector vect, t_flags flags);
+void			ft_ls_print_current(t_vector vect, t_flags flags,
+											void *(*ft_vec_pop)(t_vector *));
+t_file_info		ft_ls_construct_info(char *file_path, char *file_name);
+void			ft_ls_info_push(t_vector *vect, char *file_path,
+												char *file_name);
 #endif

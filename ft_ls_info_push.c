@@ -1,20 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_vectorpopback.c                                 :+:      :+:    :+:   */
+/*   ft_ls_info_push.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skamoza <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: skamoza <skamoza@gmail.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/30 15:24:24 by skamoza           #+#    #+#             */
-/*   Updated: 2018/01/08 16:12:40 by skamoza          ###   ########.fr       */
+/*   Created: 2018/01/08 21:24:50 by skamoza           #+#    #+#             */
+/*   Updated: 2018/01/09 01:22:39 by skamoza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_ls.h"
 
-void	*ft_vectorpopback(t_vector *vect)
+void	ft_ls_info_push(t_vector *vect, char *file_path, char *file_name)
 {
-	if (!vect->back)
-		return (NULL);
-	return (ft_vectorget(vect, --vect->back));
+	t_file_info		info;
+
+	info = ft_ls_construct_info(file_path, file_name);
+	ft_vec_pushback(vect, &info);
 }

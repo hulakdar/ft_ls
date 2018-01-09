@@ -6,7 +6,7 @@
 /*   By: skamoza <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/08 15:51:18 by skamoza           #+#    #+#             */
-/*   Updated: 2018/01/08 16:06:20 by skamoza          ###   ########.fr       */
+/*   Updated: 2018/01/09 01:22:41 by skamoza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 int		ft_ls_is_valid_param(char *dir_name)
 {
-	DIR				*dir;
+	int fd;
 
-	if (!(dir = opendir(dir_name)))
+	if (!(fd = open(dir_name, O_RDONLY)))
 		return (0);
-	closedir(dir);
+	close(fd);
 	return (1);
 }

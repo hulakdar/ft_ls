@@ -6,63 +6,57 @@
 /*   By: skamoza <skamoza@gmail.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/17 13:30:33 by skamoza           #+#    #+#             */
-/*   Updated: 2018/01/08 18:51:10 by skamoza          ###   ########.fr       */
+/*   Updated: 2018/01/09 01:22:42 by skamoza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-int		ft_ls_recursive(char *dir_name, t_flags *flags)
+int		ft_ls_recursive(t_vector vect, t_flags flags,
+					void *(*ft_vec_pop)(t_vector *))
 {
-	char *half;
-	char *whole;
-	struct dirent	*dirent;
-	DIR				*dir;
+	t_file_info		*tmp;
 
-	if (ft_strequ(dir_name, ".") || ft_strequ(dir_name, "..") ||
-			!(dir = opendir(dir_name)))
-		return (1);
-	while ((dirent = readdir(dir)))
-		if (ft_strcmp(dirent->d_name, ".") || ft_strcmp(dirent->d_name, ".."))
-		{
-			half = ft_strjoin(dir_name, "/");
-			whole = ft_strjoin(half, dirent->d_name);
-			free(half);
-			ft_list_dir(whole, flags, 0);
-			free(whole);
-		}
-	closedir(dir);
+	while ((tmp = (t_file_info *)ft_vec_pop(&vect)))
+	{
+		if (ft_strcmp(tmp->file_name, ".") && ft_strcmp(tmp->file_name, "..") &&
+				S_ISDIR(tmp->stat.st_mode))
+			ft_list_dir(ft_ls_construct_info(tmp->file_path, tmp->file_name),
+												flags, 0, ft_vec_pop);
+	}
 	return (0);
 }
 
-int		ft_list_dir(char *dir_name, t_flags *flags, int first)
+int		ft_list_dir(t_file_info info, t_flags flags, int first,
+					void *(*ft_vec_pop)(t_vector *))
 {
 	struct dirent	*dirent;
 	DIR				*dir;
 	t_vector		vect;
 
-	if (!(dir = opendir(dir_name)))
+	if (!(dir = opendir(info.file_path)))
 		return (0);
 	if (!first)
 		ft_putendl("");
-	if (!flags->one)
+	if (!flags.one && ft_strcmp(info.file_path, "."))
 	{
-		ft_putstr(dir_name);
+		ft_putstr(info.file_path);
 		ft_putendl(":");
 	}
-	ft_vectorinit(&vect, sizeof(char *), 32);
+	ft_vectorinit(&vect, sizeof(t_file_info), 32);
 	while ((dirent = readdir(dir)))
-		if (ft_strncmp(dirent->d_name, ".", 1) || flags->all)
-			ft_vectorpushback(&vect, &dirent->d_name);
+		if (ft_strncmp(dirent->d_name, ".", 1) || flags.all)
+			ft_ls_info_push(&vect, info.file_path, dirent->d_name);
 	closedir(dir);
 	ft_ls_sorting(vect, flags);
-	ft_ls_print_current(vect, *flags);
-	if (flags->recursive)
-		ft_ls_recursive(dir_name, flags);
+	ft_ls_print_current(vect, flags, ft_vec_pop);
+	if (flags.recursive)
+		ft_ls_recursive(vect, flags, ft_vec_pop);
+	ft_vectordel(&vect);
 	return (0);
 }
 
-int		ft_ls_param_handler(t_flags *flags, char *param)
+int		ft_ls_param_handle(t_flags *flags, char *param)
 {
 	while (*(++param))
 	{
@@ -85,38 +79,30 @@ int		ft_ls_param_handler(t_flags *flags, char *param)
 		else if (ft_strnequ(param, "-", 1))
 			return (0);
 		else
-			return (ft_ls_error_manager("illegal option -- ", param, 1));
+			ft_ls_error("illegal option -- ", param);
 	}
 	return (1);
 }
 
-void	ft_ls_print(t_vector vect, t_flags flags)
+void	ft_ls_print(t_vector vect, t_flags flags,
+				void *(*ft_vec_pop)(t_vector *))
 {
-	char	**tmp;
-	int		first;
+	t_file_info		*tmp;
+	int				first;
 
 	first = 1;
 	if (!vect.back)
 	{
 		if (!flags.recursive)
 			flags.one = 1;
-		ft_list_dir(".", &flags, first);
+		ft_list_dir(ft_ls_construct_info("", "."), flags, first, ft_vec_pop);
 	}
 	else
-	{
-		if (flags.reverse)
-			while ((tmp = (char **)ft_vectorpopback(&vect)))
-			{
-				ft_list_dir(*tmp, &flags, first);
-				first = 0;
-			}
-		else
-			while ((tmp = (char **)ft_vectorpopfront(&vect)))
-			{
-				ft_list_dir(*tmp, &flags, first);
-				first = 0;
-			}
-	}
+		while ((tmp = (t_file_info *)ft_vec_pop(&vect)))
+		{
+			ft_list_dir(*tmp, flags, first, ft_vec_pop);
+			first = 0;
+		}
 }
 
 int		main(int argc, char **argv)
@@ -127,17 +113,18 @@ int		main(int argc, char **argv)
 
 	ft_bzero(&flags, sizeof(t_flags));
 	i = 1;
-	while (i < argc && *argv[i] == '-' && ft_ls_param_handler(&flags, argv[i++]))
+	while (i < argc && *argv[i] == '-' && ft_ls_param_handle(&flags, argv[i++]))
 		continue ;
-	ft_vectorinit(&vect, sizeof(char *), 32);
+	ft_vectorinit(&vect, sizeof(t_file_info), 32);
 	while (i < argc)
 	{
 		if (ft_ls_is_valid_param(argv[i]))
-			ft_vectorpushback(&vect, &argv[i]);
+			ft_ls_info_push(&vect, argv[i], argv[i]);
 		else
 			ft_ls_error_manager("No such file or directory: ", argv[i], 0);
 		i++;
 	}
-	ft_ls_print(vect, flags);
+	ft_vectordel(&vect);
+	ft_ls_print(vect, flags, flags.reverse ? ft_vec_popback : ft_vec_popfront);
 	return 0;
 }

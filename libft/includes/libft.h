@@ -6,7 +6,7 @@
 /*   By: skamoza <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/24 15:05:07 by skamoza           #+#    #+#             */
-/*   Updated: 2018/01/08 17:33:52 by skamoza          ###   ########.fr       */
+/*   Updated: 2018/01/08 20:48:09 by skamoza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,9 +121,9 @@ void				*ft_vectorset(t_vector *vector, size_t index,
 void				ft_vectordel(t_vector *vector);
 void				ft_vectorinit(t_vector *dynarr, size_t size, size_t index);
 void				ft_vectordestruct(t_vector *ptr);
-void				ft_vectorpushback(t_vector *vector, void *content);
-void				*ft_vectorpopback(t_vector *vector);
-void				*ft_vectorpopfront(t_vector *vector);
+void				ft_vec_pushback(t_vector *vector, void *content);
+void				*ft_vec_popback(t_vector *vector);
+void				*ft_vec_popfront(t_vector *vector);
 void				*ft_quickmove(void *dst, void *src, size_t size);
 int					ft_atoi_b(char *str, int base);
 void				ft_tabdel(char ***hint);

@@ -1,22 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_vectordel.c                                     :+:      :+:    :+:   */
+/*   ft_vectorpushback.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: skamoza <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/07 12:58:32 by skamoza           #+#    #+#             */
-/*   Updated: 2018/01/08 20:39:15 by skamoza          ###   ########.fr       */
+/*   Created: 2017/11/25 14:32:57 by skamoza           #+#    #+#             */
+/*   Updated: 2018/01/08 20:49:02 by skamoza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_vectordel(t_vector *vector)
+void	ft_vec_pushback(t_vector *vector, void *content)
 {
-	if (vector && vector->array)
-	{
-		free(vector->array);
-		vector->array = NULL;
-	}
+	ft_vectorset(vector, vector->back, content);
+	vector->back++;
 }
