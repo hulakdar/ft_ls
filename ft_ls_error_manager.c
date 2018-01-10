@@ -6,7 +6,7 @@
 /*   By: skamoza <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/08 15:10:16 by skamoza           #+#    #+#             */
-/*   Updated: 2018/01/09 01:22:41 by skamoza          ###   ########.fr       */
+/*   Updated: 2018/01/10 10:07:02 by skamoza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	ft_ls_error(char *message, char *spec)
 	exit(1);
 }
 
-int		ft_ls_error_manager(char *message, char *spec, size_t size)
+int		ft_ls_error_manager(char *message, char *spec)
 {
 	ft_putstr_fd("./ft_ls:", 2);
 	ft_putstr_fd(message, 2);

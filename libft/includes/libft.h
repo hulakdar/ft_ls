@@ -6,7 +6,7 @@
 /*   By: skamoza <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/24 15:05:07 by skamoza           #+#    #+#             */
-/*   Updated: 2018/01/08 20:48:09 by skamoza          ###   ########.fr       */
+/*   Updated: 2018/01/09 21:13:53 by skamoza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,7 @@ void				ft_putchar(char c);
 void				ft_putstr(char const *s);
 void				ft_putendl(char const *s);
 void				ft_putnbr(int n);
+void				ft_put_size_t(size_t n);
 void				ft_puttab(char *str);
 void				ft_putchar_fd(char c, int fd);
 void				ft_putstr_fd(char const *s, int fd);

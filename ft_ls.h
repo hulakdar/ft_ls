@@ -6,7 +6,7 @@
 /*   By: skamoza <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/06 16:15:28 by skamoza           #+#    #+#             */
-/*   Updated: 2018/01/09 20:41:19 by skamoza          ###   ########.fr       */
+/*   Updated: 2018/01/10 10:07:12 by skamoza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ typedef struct	s_flags
 	unsigned	one : 1;
 	unsigned	list : 1;
 	unsigned	l_group : 1;
+	unsigned	no_group : 1;
 }				t_flags;
 typedef struct	s_file_info
 {
@@ -44,7 +45,7 @@ typedef struct	s_file_info
 }				t_file_info;
 
 void			ft_ls_error(char *error, char *param);
-int				ft_ls_error_manager(char *error, char *vec, size_t size);
+int				ft_ls_error_manager(char *error, char *vec);
 void			ft_ls_usage(void);
 int				ft_list_dir(t_file_info info, t_flags flags, int first,
 											void *(*ft_vec_pop)(t_vector *));
@@ -56,4 +57,6 @@ t_file_info		ft_ls_construct_info(char *file_path, char *file_name);
 void			ft_ls_info_push(t_vector *vect, char *file_path,
 												char *file_name);
 void			ft_ls_destruct(t_vector *vect);
+void			ft_put_total(t_vector	vect, void *(*ft_vec_pop)(t_vector *));
+
 #endif

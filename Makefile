@@ -1,13 +1,13 @@
 CC=clang
 CFLAGS=-Wall -Wextra -g
-FILES=main ft_ls_error_manager ft_ls_is_valid_param ft_ls_sorting ft_ls_print_current ft_ls_construct_info ft_ls_info_push ft_ls_destruct
+FILES=main ft_ls_error_manager ft_ls_is_valid_param ft_ls_sorting ft_ls_print_current ft_ls_construct_info ft_ls_info_push ft_ls_destruct ft_put_total
 OBJ=$(addprefix obj/, $(addsuffix .o, $(FILES)))
 NAME=ft_ls
 
 all: $(NAME)
 
 $(NAME): $(OBJ) libft/libft.a
-	@$(CC) -o $(NAME) $(OBJ) $(CFLAGS) -lm libft/libft.a
+	@$(CC) -o $(NAME) $(OBJ) $(CFLAGS) libft/libft.a
 	@echo "Binary is done! 🖥"
 libft/libft.a:
 	@make -C libft/
