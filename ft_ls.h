@@ -6,7 +6,7 @@
 /*   By: skamoza <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/06 16:15:28 by skamoza           #+#    #+#             */
-/*   Updated: 2018/01/10 10:07:12 by skamoza          ###   ########.fr       */
+/*   Updated: 2018/01/11 20:20:05 by skamoza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <dirent.h>
 # include <sys/types.h>
 # include <sys/stat.h>
+# include <sys/xattr.h>
 # include <pwd.h>
 # include <grp.h>
 # include <time.h>
@@ -58,5 +59,9 @@ void			ft_ls_info_push(t_vector *vect, char *file_path,
 												char *file_name);
 void			ft_ls_destruct(t_vector *vect);
 void			ft_put_total(t_vector	vect, void *(*ft_vec_pop)(t_vector *));
+void			ft_putinfo(t_file_info info, t_flags flags);
+void			ft_ls_print_not_dir(t_vector vect,
+							t_flags flags,
+							void *(*ft_vec_pop)(t_vector *));
 
 #endif

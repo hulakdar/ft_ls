@@ -6,7 +6,7 @@
 /*   By: skamoza <skamoza@gmail.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/17 13:30:33 by skamoza           #+#    #+#             */
-/*   Updated: 2018/01/10 10:11:09 by skamoza          ###   ########.fr       */
+/*   Updated: 2018/01/11 20:20:07 by skamoza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,12 +98,12 @@ void	ft_ls_print(t_vector vect, t_flags flags,
 			flags.one = 1;
 		ft_list_dir(ft_ls_construct_info(".", ""), flags, first, ft_vec_pop);
 	}
-	else
-		while ((tmp = (t_file_info *)ft_vec_pop(&vect)))
-		{
-			ft_list_dir(*tmp, flags, first, ft_vec_pop);
-			first = 0;
-		}
+	ft_ls_print_not_dir(vect, flags, ft_vec_pop);
+	while ((tmp = (t_file_info *)ft_vec_pop(&vect)))
+	{
+		ft_list_dir(*tmp, flags, first, ft_vec_pop);
+		first = 0;
+	}
 }
 
 int		main(int argc, char **argv)
